@@ -6,8 +6,7 @@ import 'package:mynelayan/model/catch.dart';
 import 'package:mynelayan/model/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:mynelayan/myconfig.dart';
-import 'package:mynelayan/screen/editcatchscreen.dart';
-// import 'editcatchscreen.dart';
+import 'editcatchscreen.dart';
 import 'newcatchscreen.dart';
 
 // for fisherman screen
@@ -58,7 +57,7 @@ class _SellerTabState extends State<SellerTab> {
           : Column(children: [
               Container(
                 height: 24,
-                color: Theme.of(context).colorScheme.primary,
+                color: Colors.blueGrey,
                 alignment: Alignment.center,
                 child: Text(
                   "${catchList.length} Catches Found",
@@ -147,7 +146,7 @@ class _SellerTabState extends State<SellerTab> {
       return;
     }
 
-    http.post(Uri.parse("${MyConfig().SERVER}/mynelayan/php/load_catches.php"),
+    http.post(Uri.parse("${MyConfig().SERVER}/mynelayan/php/load_catch.php"),
         body: {"userid": widget.user.id}).then((response) {
       //print(response.body);
       log(response.body);

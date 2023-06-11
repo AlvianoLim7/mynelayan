@@ -369,15 +369,22 @@ class _NewCatchScreenState extends State<NewCatchScreen> {
     String catchdesc = _catchdescEditingController.text;
     String catchprice = _catchpriceEditingController.text;
     String catchqty = _catchqtyEditingController.text;
+    String state = _prstateEditingController.text;
+    String locality = _prlocalEditingController.text;
     String base64Image = base64Encode(_image!.readAsBytesSync());
 
     http.post(Uri.parse("${MyConfig().SERVER}/mynelayan/php/insert_catch.php"),
         body: {
+          "userid": widget.user.id.toString(),
           "catchname": catchname,
           "catchdesc": catchdesc,
           "catchprice": catchprice,
           "catchqty": catchqty,
           "type": selectedType,
+          "latitude": prlat,
+          "longitude": prlong,
+          "state": state,
+          "locality": locality,
           "image": base64Image
         }).then((response) {
       print(response.body);
@@ -398,6 +405,7 @@ class _NewCatchScreenState extends State<NewCatchScreen> {
       }
     });
   }
+
   void _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;

@@ -50,7 +50,7 @@ class _ProfileTabState extends State<ProfileTab> {
                   ),
                 ),
                 Expanded(
-                    flex: 6,
+                    flex: 4,
                     child: Column(
                       children: [
                         Text(

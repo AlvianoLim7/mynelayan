@@ -1,5 +1,4 @@
 import 'dart:convert';
-// import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 // import 'package:image_picker/image_picker.dart';
@@ -84,7 +83,7 @@ class _EditCatchScreenState extends State<EditCatchScreen> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
               child: Card(
-                child: Container(
+                child: SizedBox(
                   width: screenWidth,
                   child: CachedNetworkImage(
                     width: screenWidth,
