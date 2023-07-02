@@ -26,8 +26,8 @@ class _NewsTabState extends State<NewsTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(maintitle),
+    return Scaffold(
+      appBar: AppBar(title: Text(maintitle)),
     );
   }
 }

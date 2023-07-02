@@ -44,6 +44,7 @@ class _SellerTabState extends State<SellerTab> {
       axiscount = 2;
     }
     return Scaffold(
+      appBar: AppBar(title: Text(maintitle)),
       body: catchList.isEmpty
           ? const Center(
               child: Text("No Data"),
