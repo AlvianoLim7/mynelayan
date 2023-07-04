@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -101,13 +102,14 @@ class _BuyerCartScreenState extends State<BuyerCartScreen> {
                       })),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Container(
+            child: SizedBox(
                 height: 70,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Total Price RM " + totalprice.toStringAsFixed(2)),
-                    ElevatedButton(onPressed: () {}, child: Text("Check Out"))
+                    Text("Total Price RM ${totalprice.toStringAsFixed(2)}"),
+                    ElevatedButton(
+                        onPressed: () {}, child: const Text("Check Out"))
                   ],
                 )),
           )
@@ -121,8 +123,8 @@ class _BuyerCartScreenState extends State<BuyerCartScreen> {
         body: {
           "userid": widget.user.id,
         }).then((response) {
-      print(response.body);
-      // log(response.body);
+      // print(response.body);
+      log(response.body);
       cartList.clear();
       if (response.statusCode == 200) {
         var jsondata = jsonDecode(response.body);
@@ -130,15 +132,15 @@ class _BuyerCartScreenState extends State<BuyerCartScreen> {
           var extractdata = jsondata['data'];
           extractdata['carts'].forEach((v) {
             cartList.add(Cart.fromJson(v));
-            // totalprice = totalprice +
-            //     double.parse(extractdata["carts"]["cart_price"].toString());
+            totalprice = totalprice +
+                double.parse(extractdata["carts"]["cart_price"].toString());
           });
 
           cartList.forEach((element) {
             totalprice =
                 totalprice + double.parse(element.cartPrice.toString());
           });
-          //print(catchList[0].catchName);
+          // print(cartList[0].catchName);
         }
         setState(() {});
       }

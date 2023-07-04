@@ -200,11 +200,11 @@ class _BuyerDetailsScreenState extends State<BuyerDetailsScreen> {
           "RM ${totalprice.toStringAsFixed(2)}",
           style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        // ElevatedButton(
-        //     onPressed: () {
-        //       addtocartdialog();
-        //     },
-        //     child: const Text("Add to Cart"))
+        ElevatedButton(
+            onPressed: () {
+              addtocartdialog();
+            },
+            child: const Text("Add to Cart"))
       ]),
     );
   }

@@ -7,7 +7,7 @@ import 'package:mynelayan/model/catch.dart';
 import 'package:mynelayan/model/user.dart';
 import 'package:mynelayan/myconfig.dart';
 import 'package:http/http.dart' as http;
-// import 'package:mynelayan/screen/buyercartscreen.dart';
+import 'package:mynelayan/screen/buyercartscreen.dart';
 import 'package:mynelayan/screen/buyerdetailscreen.dart';
 
 class BuyerTab extends StatefulWidget {
@@ -16,8 +16,6 @@ class BuyerTab extends StatefulWidget {
 
   @override
   State<BuyerTab> createState() => _BuyerTabState();
-
-  void showsearchDialog() {}
 }
 
 class _BuyerTabState extends State<BuyerTab> {
@@ -28,7 +26,7 @@ class _BuyerTabState extends State<BuyerTab> {
   int numofpage = 1, curpage = 1;
   int numberofresult = 0;
   var color;
-  // int cartqty = 0;
+  int cartqty = 0;
 
   TextEditingController searchController = TextEditingController();
   @override
@@ -62,6 +60,25 @@ class _BuyerTabState extends State<BuyerTab> {
                 showsearchDialog();
               },
               icon: const Icon(Icons.search)),
+          TextButton.icon(
+            icon: const Icon(
+              Icons.shopping_cart,
+            ), // Your icon here
+            label: Text(cartqty.toString()), // Your text here
+            onPressed: () {
+              if (cartqty > 0) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (content) => BuyerCartScreen(
+                              user: widget.user,
+                            )));
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("No item in cart")));
+              }
+            },
+          )
         ],
       ),
       body: catchList.isEmpty
@@ -169,17 +186,17 @@ class _BuyerTabState extends State<BuyerTab> {
       if (response.statusCode == 200) {
         var jsondata = jsonDecode(response.body);
         if (jsondata['status'] == "success") {
-          log(response.body);
+          // log(response.body);
           numofpage = int.parse(jsondata['numofpage']); //get number of pages
           numberofresult = int.parse(jsondata['numberofresult']);
-          print(numberofresult);
+          // print(numberofresult);
           var extractdata = jsondata['data'];
-          // cartqty = int.parse(jsondata['cartqty'].toString());
+          cartqty = int.parse(jsondata['cartqty'].toString());
           // print(cartqty);
           extractdata['catches'].forEach((v) {
             catchList.add(Catch.fromJson(v));
           });
-          print(catchList[0].catchName);
+          // print(catchList[0].catchName);
         }
         setState(() {});
       }
@@ -239,8 +256,8 @@ class _BuyerTabState extends State<BuyerTab> {
           "cartuserid": widget.user.id,
           "search": search
         }).then((response) {
-      //print(response.body);
-      log(response.body);
+      // print(response.body);
+      // log(response.body);
       catchList.clear();
       if (response.statusCode == 200) {
         var jsondata = jsonDecode(response.body);
@@ -249,7 +266,7 @@ class _BuyerTabState extends State<BuyerTab> {
           extractdata['catches'].forEach((v) {
             catchList.add(Catch.fromJson(v));
           });
-          print(catchList[0].catchName);
+          // print(catchList[0].catchName);
         }
         setState(() {});
       }
